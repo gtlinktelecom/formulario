@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro de Cliente - GTLINK</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .form-container {
+      background: #000;
+      padding: 25px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 4px 15px rgba(255,165,0,0.25);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      max-width: 180px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #ffa500;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+      color: #ffa500;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: none;
+      background: #fff;
+      color: #000;
+      font-weight: bold;
+    }
+
+    input::placeholder {
+      color: #555;
+      font-weight: normal;
+    }
+
+    .planos {
+      margin-top: 10px;
+    }
+
+    .plano {
+      border: 1px solid #ffa500;
+      border-radius: 6px;
+      padding: 10px;
+      margin-top: 10px;
+      color: #fff;
+    }
+
+    .plano label {
+      color: #fff;
+      font-weight: normal;
+    }
+
+    .plano strong {
+      color: #ffa500;
+    }
+
+    .plano input {
+      width: auto;
+      margin-right: 8px;
+    }
+
+button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 14px;
+  background: #ffa500;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+/* Animação suave */
+input, .plano {
+  transition: all 0.25s ease;
+}
+
+input:focus {
+  transform: scale(1.02);
+  box-shadow: 0 0 0 2px rgba(255,165,0,0.4);
+  outline: none;
+}
+
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <div class="logo">
+    <img src="https://i.postimg.cc/9M8QBJRs/logopretaebranco.png">
+  </div>
+
+  <h2>Cadastro de Cliente</h2>
+    <form
+    id="cadastroForm"
+    action="https://n8n.vps6993.panel.icontainer.net/webhook/cadastro-cliente-gtlink"
+    method="POST"
+>	
+
+    <label>Nome completo</label>
+    <input type="text" name="nome_completo" required>
+
+    <label>CPF</label>
+    <input type="text" name="cpf" maxlength="14" required>
+
+    <label>Data de nascimento</label>
+    <input type="text" name="data_nascimento" placeholder="DD/MM/AAAA" maxlength="10" required>
+
+    <label>Email</label>
+    <input type="email" name="email" required>
+
+    <label>CEP</label>
+    <input type="text" name="cep" maxlength="9" required>
+
+
+    <label>Endereço</label>
+    <input type="text" name="endereco" required>
+
+   
+    <label style="display:flex; align-items:center; gap:6px;">
+  <img 
+    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+    alt="WhatsApp"
+    width="18"
+    height="18"
+  >
+  Telefone ( WhatsApp )
+</label>
+    <input
+  type="text"
+  name="telefone"
+  inputmode="numeric"
+  placeholder="+55 (DD) 9XXXX-XXXX"
+  maxlength="19"
+  required
+>
+
+
+    <label>Dia de vencimento</label>
+    <input type="number" name="dia_vencimento" min="1" max="31" required>
+
+    <label>Plano desejado</label>
+    <div class="planos">
+
+      <div class="plano">
+        <label>
+          <input type="radio" name="plano" value="200MB - R$70 - Fibra Óptica" required>
+          🛜 <strong>200MB</strong> — R$ 70,00<br>
+          100% Fibra Óptica
+        </label>
+      </div>
+
+      <div class="plano">
+        <label>
+          <input type="radio" name="plano" value="400MB - R$80 - Fibra Óptica">
+          🛜 <strong>400MB</strong> — R$ 80,00<br>
+          100% Fibra Óptica
+        </label>
+      </div>
+
+      <div class="plano">
+        <label>
+          <input type="radio" name="plano" value="700MB - R$100 - Fibra Óptica + GTFLIX">
+          🛜 <strong>700MB</strong> — R$ 100,00<br>
+          100% Fibra Óptica<br>
+          🎁 Brinde: <strong>GTFLIX</strong>
+        </label>
+      </div>
+
+    </div>
+
+    <button type="submit">Enviar cadastro</button>
+
+</form>
+
+  
+<!-- MENSAGEM DE SUCESSO -->
+  <div
+    id="mensagemSucesso"
+    style="
+      display:none;
+      text-align:center;
+      margin-top:30px;
+      color:#ffa500;
+    "
+  >
+    <h3>✅ Dados recebidos</h3>
+
+    <p style="color:#fff; font-size:15px; line-height:1.6;">
+      Encaminharei sua solicitação para agendamento da instalação.<br><br>
+      Aguarde um pouco que já nossos atendentes humanos entrarão em contato.<br><br>
+      <strong>
+        Obrigado pela preferência<br>
+        GTLINK Telecom!
+      </strong>
+    </p>
+
+<button
+  id="novoCadastro"
+  style="
+    margin-top:20px;
+    padding:12px 20px;
+    background:#ffa500;
+    color:#000;
+    border:none;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+  "
+>
+  Novo cadastro
+</button>
+  </div>
+
+
+<script>
+
+  /* DATA DD/MM/AAAA */
+  const dataInput = document.querySelector('input[name="data_nascimento"]');
+  dataInput.addEventListener('input', () => {
+    let v = dataInput.value.replace(/\D/g, '').slice(0, 8);
+    if (v.length >= 5) {
+      dataInput.value = v.slice(0,2) + '/' + v.slice(2,4) + '/' + v.slice(4);
+    } else if (v.length >= 3) {
+      dataInput.value = v.slice(0,2) + '/' + v.slice(2);
+    } else {
+      dataInput.value = v;
+    }
+  });
+
+// Máscara Telefone
+
+const telefoneInput = document.querySelector('input[name="telefone"]');
+
+telefoneInput.addEventListener('input', () => {
+  let v = telefoneInput.value.replace(/\D/g, '');
+
+  // remove 55 se o usuário tentar digitar
+  if (v.startsWith('55')) {
+    v = v.slice(2);
+  }
+
+  // limita a DDD (2) + número (9)
+  v = v.slice(0, 11);
+
+  let formatado = '+55 ';
+
+  if (v.length > 0) {
+    formatado += '(' + v.slice(0, 2);
+  }
+
+  if (v.length >= 3) {
+    formatado += ') ';
+  }
+
+  if (v.length >= 3 && v.length <= 7) {
+    formatado += v.slice(2);
+  }
+
+  if (v.length >= 8) {
+    formatado +=
+      v.slice(2, 7) + '-' + v.slice(7, 11);
+  }
+
+  telefoneInput.value = formatado;
+});
+
+
+  /* CPF 000.000.000-00 */
+  const cpfInput = document.querySelector('input[name="cpf"]');
+
+  cpfInput.addEventListener('input', () => {
+    let v = cpfInput.value.replace(/\D/g, '').slice(0, 11);
+
+    if (v.length >= 10) {
+      cpfInput.value =
+        v.slice(0, 3) + '.' +
+        v.slice(3, 6) + '.' +
+        v.slice(6, 9) + '-' +
+        v.slice(9, 11);
+    } else if (v.length >= 7) {
+      cpfInput.value =
+        v.slice(0, 3) + '.' +
+        v.slice(3, 6) + '.' +
+        v.slice(6);
+    } else if (v.length >= 4) {
+      cpfInput.value =
+        v.slice(0, 3) + '.' +
+        v.slice(3);
+    } else {
+      cpfInput.value = v;
+    }
+  });
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  const form = document.getElementById('cadastroForm');
+  const mensagem = document.getElementById('mensagemSucesso');
+
+  // se já enviou antes
+  if (localStorage.getItem('cadastro_enviado') === 'sim') {
+    form.style.display = 'none';
+    mensagem.style.display = 'block';
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault(); // impede recarregar a página
+
+    const formData = new FormData(form);
+
+  try {
+  const response = await fetch(form.action, {
+    method: 'POST',
+    body: formData
+  });
+
+  // mesmo que o n8n não retorne JSON ou status 200
+  if (!response.ok) {
+    console.warn('Resposta do webhook:', response.status);
+  }
+
+  localStorage.setItem('cadastro_enviado', 'sim');
+  form.style.display = 'none';
+  mensagem.style.display = 'block';
+
+} catch (error) {
+  console.error(error);
+  alert('Não foi possível enviar agora. Tente novamente em instantes.');
+}
+
+  });
+
+  const btnNovoCadastro = document.getElementById('novoCadastro');
+  if (btnNovoCadastro) {
+    btnNovoCadastro.addEventListener('click', () => {
+      localStorage.removeItem('cadastro_enviado');
+      location.reload();
+    });
+  }
+
+});
+const cepInput = document.querySelector('input[name="cep"]');
+const enderecoInput = document.querySelector('input[name="endereco"]');
+
+/* MÁSCARA CEP XXXXX-XXX */
+cepInput.addEventListener('input', () => {
+  let v = cepInput.value.replace(/\D/g, '').slice(0, 8);
+
+  if (v.length > 5) {
+    cepInput.value = v.slice(0, 5) + '-' + v.slice(5);
+  } else {
+    cepInput.value = v;
+  }
+});
+
+/* BUSCA ENDEREÇO PELO CEP */
+cepInput.addEventListener('blur', async () => {
+  const cep = cepInput.value.replace(/\D/g, '');
+
+  if (cep.length !== 8) return;
+
+  try {
+    const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+    const data = await response.json();
+
+    if (data.erro) {
+      alert('CEP não encontrado');
+      return;
+    }
+
+    enderecoInput.value = data.logradouro;
+  } catch (error) {
+    alert('Erro ao buscar CEP');
+  }
+});
+</script>
+
+</body>
+</html>
+

@@ -128,6 +128,7 @@ input:focus {
     action="https://n8n.vps6993.panel.icontainer.net/webhook/cadastro-cliente-gtlink"
     method="POST"
 >	
+      <input type="hidden" name="message" value="GTLINK">
 
     <label>Nome completo</label>
     <input type="text" name="nome_completo" required>
@@ -424,6 +425,7 @@ cepInput.addEventListener('blur', async () => {
 
 </body>
 </html>
+
 
 
 
